@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script>
+			/**
+			 * @param {string} s
+			 * @param {number} n
+			 * @return {string}
+			 */
+			var reverseLeftWords = function (s, n) {
+				return s
+					.repeat(2)
+					.slice(n)
+					.slice(0, s.length + n - 1);
+			};
+
+			console.log("asdf".repeat(2));
+			console.log(reverseLeftWords("string", 2));
+		</script>
+	</body>
+</html>
