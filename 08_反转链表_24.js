@@ -34,4 +34,21 @@ var reverseList = function(head) {
     return preNode;
 };
 
-reverseList(ListNode);
+
+//  递归
+var reverseList = function(head) {
+    if (head === null) return head;
+    return reverseEveryNode(head, null)
+};
+
+var reverseEveryNode = function (head, preNode) {
+    if (head === null) {
+        return preNode;
+    }
+    const next = head.next;
+    head.next = preNode;
+    preNode = head;
+    return reverseEveryNode(next, preNode);
+}
+
+console.log(reverseList(ListNode));
