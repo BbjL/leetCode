@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <title>Document</title>
+    </head>
+    <body>
+    <script>
+        const map = new Map([
+            ['1', 'a'],
+            ['2', 'b'],
+            ['3', 'c']
+        ])
+        console.log(map);
+        console.log(map.entries());
+        console.log(map.values());
+        for (const iterator of map) {
+            console.log(iterator);
+        }
+        for (const iterator of map.entries() ) {
+            console.log((map.entries()))
+        }
+    </script>
+    </body>
+</html>
