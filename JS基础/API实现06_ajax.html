@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!--
+
+      五个状态
+      0，表示 XMLHttpRequest 实例已经生成，但是实例的open()方法还没有被调用。
+      1，表示open()方法已经调用，但是实例的send()方法还没有调用，仍然可以使用实例的setRequestHeader()方法，设定 HTTP 请求的头信息。
+      2，表示实例的send()方法已经调用，并且服务器返回的头信息和状态码已经收到。
+      3，表示正在接收服务器传来的数据体（body 部分）。这时，如果实例的responseType属性等于text或者空字符串，responseText属性就会包含已经收到的部分信息。
+      4，表示服务器返回的数据已经完全接收，或者本次接收已经失败
+
+      -->
+    <script>
+      function ajax(url, type, data) {
+        const xhr = new XMLHttpRequest();
+        xhr.open(type, url);
+        // 设置请求头信息
+        // xhr.responseType = "json";
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.send(null);
+
+        // xhr.onreadystatechange = function () {
+        //   if (this.readyState !== 4) return
+        //   if (this.status === 200)  {
+        //     console.log(this.responseText);
+        //   }else {
+        //     console.log(this.statusText);
+        //   }
+        // };
+
+        xhr.onload = function () {
+          if (this.status === 200) {
+            console.log(this.responseText);
+          } else {
+            console.log(this.statusText);
+          }
+        };
+
+        xhr.onerror = function () {
+          console.log(this.statusText);
+        };
+      }
+
+      // Promise 封装
+      function request(url, type, data) {
+        return new Promise((resolve, rejcet) => {
+          const xhr = new XMLHttpRequest();
+          // 设置请求头信息
+          // xhr.responseType = "json";
+          // xhr.setRequestHeader("Accept", "application/json");
+          switch (type.toUpperCase()) {
+            case "GET":
+              url = handleUrlString(url, data);
+              xhr.open(type, url);
+              xhr.send(null);
+              break;
+            case "POST":
+              xhr.open(type, url);
+              xhr.send(data)
+              break;
+          }
+
+          xhr.addEventListener("load", function () {
+            if (this.status === 200) {
+              console.log(this.responseText);
+            } else {
+              console.warn(this.statusText);
+            }
+          });
+        });
+      }
+
+      function handleUrlString(url, data) {
+        url += "?";
+        for (key in data) {
+          url += `${key}=${data[key]}&`;
+        }
+        url = url.slice(0, -1);
+        return url;
+      }
+
+      request("http://localhost:8089/test_get", "get", {user: 'bjl'}).then(res => {
+        console.log(res);
+      })
+
+      // ajax("http://localhost:8089/test_get", "get");
+    </script>
+  </body>
+</html>

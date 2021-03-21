@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        console.log(document.getElementsByTagName('div'));
+    </script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <div>1`1111111111111111111111</div>
+    <img src="https://static.leetcode-cn.com/cn-mono-assets/production/assets/logo-dark-cn.c42314a8.svg" alt="" />
+    <script>
+      /* 
+            DOMContentLoaded: DOM解析完成即触发此事件，不等待styles, images等资源的加载
+            load：依赖的资源也已加载完成
+            DOMContentLoaded绑定到document，load绑定到window
+        */
+      document.addEventListener("DOMContentLoaded", function (event) {
+        console.log("DOM fully loaded and parsed"); // 先打印
+      });
+      window.addEventListener("load", function (event) {
+        console.log("img loaded"); // 后打印
+      });
+    </script>
+  </body>
+</html>
