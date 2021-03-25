@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+
+        <!-- 
+            pushState + ajax 实现浏览器无刷新前进后退
+            1. 使用 location。hash = "#xxxx
+            2. 使用 history.pushState "
+                用法:   1. 调用ajax成功后 history.pushState(state, "", url);
+                            state: 保存的数据
+                            title: 大部分浏览器不支持，使用”“替代
+                            url: 导航条当前显示的地址，如果点击刷新会定位到该地址，只使用pushState只会改变地址
+                        2. 当用户使用浏览器或者脚本 history.go、history.back 都会触发onpopstate事件
+                            window.onpopstate = function (evt) {
+                                var state = evt.state;
+                                if (state) {     
+                                    $("#container").html(state.content);
+                                }
+                            }
+                            
+                        3. 注意
+                            在介绍 pushState 的时候说过，当完成一次ajax请求的时候，应该把新的 url 等状态信息保存到历史记录中。而当页面第一次加载的时候，我们其实并没有调用 pushState 来保存过历史记录。这会不会有问题呢？
+                        答案是肯定的，因为历史记录中并没有针对第一页的记录，所以当我们试图从第二页后退到第一页的时候，会发现尽管地址栏发生了变化，但是浏览器内容却一点变化都没有。
+                        解决办法是使用 replaceState。
+                        if (history.replaceState) {
+                            history.replaceState({ url: location.href, title:"",content:data }, "", location.href);
+                        }
+
+         -->
+
+		<button id="btn">刷新页面</button>
+		<button id="btn2">刷新页面</button>
+		<script>
+			let count = 0;
+			const dom = document.querySelector("#btn");
+			const dom2 = document.querySelector("#btn2");
+
+			dom.addEventListener("click", function () {
+				const xhr = new XMLHttpRequest();
+				xhr.open("get", "http://localhost:8089/test_get");
+				xhr.send(null);
+				xhr.addEventListener("load", function () {
+					if (this.status === 200) {
+						count++;
+						// 添加路由
+						location.hash = `#${count}`;
+					}
+				});
+			});
+
+			dom2.addEventListener("click", function () {
+				const xhr = new XMLHttpRequest();
+				xhr.open("get", "http://localhost:8089/test_get");
+				xhr.send(null);
+				xhr.addEventListener("load", function () {
+					if (this.status === 200) {
+						count++;
+						var url =
+							"https://192.168.62.59:8081/%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B004_%E9%A1%B5%E9%9D%A2%E6%97%A0%E5%88%B7%E6%96%B0%E8%B7%B3%E8%BD%AC.html/2";
+						var state = {
+							url: url,
+							title: "第二页",
+							content: 2,
+						};
+						dom2.innerHTML = state.content;
+						history.pushState(state, "", url);
+					}
+				});
+			});
+
+			if (history.replaceState) {
+				history.replaceState(
+					{ url: location.href, title: "第一页", content: "刷新页面" },
+					"",
+					location.href
+				);
+			}
+			window.onpopstate = function (evt) {
+                // 移除过后的当前栈顶
+				console.log(evt.state);
+                const { state } = evt;
+                dom2.innerHTML = state.content
+			};
+		</script>
+	</body>
+</html>
