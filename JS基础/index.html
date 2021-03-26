@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
       <title>protice</title>
+      <!-- <meta name="viewport" content="user-scalable=no"> -->
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1">
       <style>
           *{
               padding: 0;
@@ -10,7 +12,7 @@
           .left{
               float: left;
               width: 200px;
-              height: 1px;
+              height: 200px;
               background-color: pink;
           }
           .right{
@@ -26,15 +28,22 @@
       <div class="right">right</div>
       <script>
         const dom = document.querySelector('.left')
+        dom.addEventListener('touchstart', function () {
+          console.log('touchstart event', new Date().getTime());
+        })
+        dom.addEventListener('touchend', function (event) {
+          console.log('touchend event', new Date().getTime());
+          // 阻止默认事件（出发click事件）
+          event.preventDefault();
+          // 创建事件 参数为事件类型
+          const myClick = document.createEvent('MouseEvents');
+          // // 定义事件名
+          myClick.initMouseEvent('click', true, true);
+          // 触发事件
+          this.dispatchEvent(myClick);
+        })
         dom.addEventListener('click', function () {
-          const xhr = new XMLHttpRequest();
-          xhr.open('get', "http://localhost:8089/test_get")
-          xhr.send(null)
-          xhr.addEventListener('load', function () {
-            if (this.status === 200) {
-              location.hash = '#1'
-            }
-          })
+          console.log('click event', new Date().getTime());
         })
       </script>
   </body>
