@@ -1,51 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <title>protice</title>
-      <!-- <meta name="viewport" content="user-scalable=no"> -->
-      <meta name="viewport" content="initial-scale=1,maximum-scale=1">
-      <style>
-          *{
-              padding: 0;
-              margin: 0;
-          }
-          .left{
-              float: left;
-              width: 200px;
-              height: 200px;
-              background-color: pink;
-          }
-          .right{
-              height: 200px;
-              background-color: deeppink;
-              overflow: hidden;     /*开启BFC ，利用其不予float box 重叠的特定*/
-          }
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+    <style>
+      .wrapper {
+        display: table-cell;
+        height: 500px;
+        width: 500px;
+        text-align: center;
+        vertical-align: middle;
+        background: yellow;
+      }
+      .content {
+        display: inline-block;
+        height: 200px;
+        width: 200px;
+        background: pink;
+      }
+    </style>
+	</head>
+	<body>
+    <div class="wrapper">
+      <div class='content'></div>
+    </div>
+		<script>
 
-      </style>
-  </head>
-  <body>
-      <div class="left">left</div>
-      <div class="right">right</div>
-      <script>
-        const dom = document.querySelector('.left')
-        dom.addEventListener('touchstart', function () {
-          console.log('touchstart event', new Date().getTime());
-        })
-        dom.addEventListener('touchend', function (event) {
-          console.log('touchend event', new Date().getTime());
-          // 阻止默认事件（出发click事件）
-          event.preventDefault();
-          // 创建事件 参数为事件类型
-          const myClick = document.createEvent('MouseEvents');
-          // // 定义事件名
-          myClick.initMouseEvent('click', true, true);
-          // 触发事件
-          this.dispatchEvent(myClick);
-        })
-        dom.addEventListener('click', function () {
-          console.log('click event', new Date().getTime());
-        })
-      </script>
-  </body>
-  </html>
+    </script>
+	</body>
 </html>
