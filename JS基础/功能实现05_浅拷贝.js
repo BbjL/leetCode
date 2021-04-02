@@ -4,7 +4,7 @@
 浅拷贝实现
 
 数组浅拷贝： Array.prototype.slice();
-对象浅拷贝： Object。assign({}, target);
+对象浅拷贝： Object.assign({}, target);
 遍历属性实现拷贝
 
 浅拷贝
