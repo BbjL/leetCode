@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<p id="val">0</p>
+		<button id="increase">+</button>
+		<button id="decrease">-</button>
+		<script>
+			const myApp = {};
+			// view
+			myApp.View = function (controller) {
+				const $val = document.querySelector("#val"),
+					$addBtn = document.querySelector("#increase");
+				$subBtn = document.querySelector("#decrease");
+
+				// 初始化
+				this.init = function () {
+					const presenter = new myApp.Presenter(this);
+
+					$addBtn.addEventListener("click", presenter.increase);
+					$subBtn.addEventListener("click", presenter.decrease);
+				};
+
+				// 更新视图
+				this.render = function (model) {
+					$val.innerText = model.getValue();
+				};
+			};
+
+			// model
+			myApp.Model = function () {
+				let val = 0;
+
+				this.increase = function () {
+					val += 1;
+				};
+
+				this.decrease = function () {
+					val -= 1;
+				};
+
+				this.getValue = function () {
+					return val;
+				};
+			};
+
+			// controller
+			myApp.Presenter = function (view) {
+				const model = new myApp.Model();
+
+				this.increase = function () {
+					model.increase();
+					view.render(model);
+				};
+				this.decrease = function () {
+					model.decrease();
+					view.render(model);
+				};
+			};
+
+            const view = new myApp.View();
+            view.init()
+		</script>
+	</body>
+</html>

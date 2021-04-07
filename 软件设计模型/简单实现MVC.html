@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+        <p id="val">0</p>
+		<button id="increase">+</button>
+		<button id="decrease">-</button>
+		<script>
+            const myApp = {}
+			// view
+            myApp.View = function (controller) {
+                const $val = document.querySelector('#val'),
+                      $addBtn = document.querySelector('#increase')      
+                      $subBtn = document.querySelector('#decrease');
+
+                this.render = function (model) {
+                    $val.innerText = model.getVal();
+                }
+
+                // View 和 Controller采用策略模式实现响应策略
+                $addBtn.addEventListener('click', controller.increase)
+                $subBtn.addEventListener('click', controller.decrease)
+            }
+
+            // model
+            myApp.Model = function () {
+                let val = 0;
+
+                this.increase = function () {
+                    val += 1;
+                }
+
+                this.decrease = function () {
+                    val -= 1;
+                }
+
+                this.getVal = function () {
+                    return val;
+                }
+
+                // 与view的通信采用观察者模式
+                const queue = [];
+                const self = this;
+
+                this.register  = function (view) {
+                    queue.push(view);
+                }
+
+                // 通知view数据变化
+                this.notify = function () {
+                    for (let i = 0; i < queue.length; i++) {
+                        console.log(queue[i].render);
+                        queue[i].render(self);
+                    }
+                }
+            }
+
+            // controller
+            myApp.Controller = function () {
+                let model = null,
+                    view = null;
+
+                this.init = function () {
+                   view = new myApp.View(this);
+                   model = new myApp.Model(); 
+                   /* View向Model注册，当Model更新就会去通知View啦 */
+                   model.register(view);
+                   model.notify();
+                }
+
+                this.increase = function () {
+                    model.increase();
+                    model.notify()
+                }
+
+                this.decrease = function () {
+                    model.increase();
+                    model.notify()
+                }
+            }
+
+            var controller = new myApp.Controller();
+            controller.init();
+		</script>
+	</body>
+</html>
