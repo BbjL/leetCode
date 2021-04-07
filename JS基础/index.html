@@ -1,42 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <title>protice</title>
-      <style>
-          *{
-              padding: 0;
-              margin: 0;
-          }
-          .left{
-              float: left;
-              width: 200px;
-              height: 1px;
-              background-color: pink;
-          }
-          .right{
-              height: 200px;
-              background-color: deeppink;
-              overflow: hidden;     /*开启BFC ，利用其不予float box 重叠的特定*/
-          }
-
-      </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
   </head>
   <body>
-      <div class="left">left</div>
-      <div class="right">right</div>
-      <script>
-        const dom = document.querySelector('.left')
-        dom.addEventListener('click', function () {
-          const xhr = new XMLHttpRequest();
-          xhr.open('get', "http://localhost:8089/test_get")
-          xhr.send(null)
-          xhr.addEventListener('load', function () {
-            if (this.status === 200) {
-              location.hash = '#1'
-            }
-          })
-        })
-      </script>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <div>11111111111</div>
+    <script>
+      
+
+      class Animal {
+        constructor() {
+          this.name = "tom";
+        }
+
+        animal() {
+          console.log(this, "animal的实例方法");
+        }
+      }
+      class Cat extends Animal {
+        constructor() {
+          super();
+        }
+
+        catbar() {
+          // super指向的是原型对象，因此是无法访问到父类构造函数内实例属性和方法的
+          super.animal();
+          super.sex = "man";
+        }
+
+        static catfoo() {
+          console.log(this);
+        }
+      }
+
+      // 在子类实例
+      const cat = new Cat();
+      cat.catbar();
+    </script>
   </body>
-  </html>
 </html>
