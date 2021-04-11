@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      img {
+        /* 必须保有预留位置才能使用懒加载，不然dom没有渲染都获取不到真实的距离 */
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 参考链接： https://zhuanlan.zhihu.com/p/55311726\
+    
+        插件： aFarkas/lazysizes
+    -->
+    <div>
+      <img
+        data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSmBaAJdzQoRBqZzFCponccFHXr7APfofoY-A&usqp=CAU"
+      />
+    </div>
+    <div>
+      <img
+        data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQGjVhas5l7mv3syS2FmVFmucnoNXRVG2LSMQ&usqp=CAU"
+      />
+    </div>
+    <div>
+      <img
+        data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTJXmFUwjR5Y2JyP4Mh6KdecDwzlt0-2Zi_Ig&usqp=CAU"
+      />
+    </div>
+    <div>
+      <img
+        data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRzTFCIG086bS_v_pr-WxUg7AhNYesvGsoo8Q&usqp=CAU"
+      />
+    </div>
+    <div>
+      <img
+        data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQXyLXeG0SE_yooYlhXUXXWV9d1aA1nxJNapg&usqp=CAU"
+      />
+    </div>
+    <div>
+      <img
+        data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ6dWbqoespAGPbsw_LBhR59kYeZiO95ZEZuA&usqp=CAU"
+      />
+    </div>
+    <script>
+      // clientTop 一个元素顶部边框的宽度（以像素表示）
+      // scrollTop 获取滚动位置
+      // offsetTop 它返回当前元素相对于其 offsetParent 元素的顶部内边距的距离。
+      // offsetParent返回一个指向最近的（指包含层级上的最近）包含该元素的定位元素或者最近的 table,td,th,body元素。
+      // 当元素的 style.display 设置为 "none" 时，offsetParent 返回 null。
+      // 判断是否在视口  clientTop + scrollTop > clientTop
+
+      function getTop(e) {
+        let t = e.offsetTop;
+        while ((e = e.offsetParent)) {
+          t += e.offsetTop;
+        }
+        return t;
+        // return e.getBoundingClientRect() 可以代替以上全部语句  但是有一定的兼容性问题
+      }
+
+      function lazyLoad(imgs) {
+        const h = document.documentElement.clientHeight; // 获取视口大小
+        const s = document.documentElement.scrollTop || document.body.scrollTop; // 滚动距离
+        Array.prototype.slice.apply(imgs).forEach((img) => {
+          if (h + s > getTop(img) && !img.src) {
+            // 判断是否已经加载过
+            const src = img.getAttribute("data-src");
+            img.src = src;
+          }
+        });
+      }
+
+      function throttle(fn, wait) {
+        if (typeof fn !== "function") return;
+
+        let preTime = new Date().getTime();
+        let timer = null;
+
+        return function () {
+          const context = this;
+          const args = arguments;
+          let nowTime = new Date().getTime();
+
+          clearTimeout(timer);
+
+          if (nowTime - preTime > wait) {
+            fn.call(context, arguments);
+            preTime = nowTime;
+          } else {
+            timer = setTimeout(() => {
+              preTime = nowTime;
+              fn.call(context, arguments);
+              tiemr = null;
+            }, wait);
+          }
+        };
+      }
+
+      function scroll(e) {
+        lazyLoad(imgs);
+      }
+
+      const imgs = document.querySelectorAll("img");
+
+      window.onload = window.onscroll = throttle(scroll, 300);
+    </script>
+  </body>
+</html>
