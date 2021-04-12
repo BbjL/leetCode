@@ -9,7 +9,7 @@
 
         <!-- 
             pushState + ajax 实现浏览器无刷新前进后退
-            1. 使用 location。hash = "#xxxx
+            1. 使用 location.hash = "#xxxx
             2. 使用 history.pushState "
                 用法:   1. 调用ajax成功后 history.pushState(state, "", url);
                             state: 保存的数据
@@ -81,7 +81,7 @@
 				);
 			}
 			window.onpopstate = function (evt) {
-                // 移除过后的当前栈顶
+				// 移除过后的当前栈顶
 				console.log(evt.state);
                 const { state } = evt;
                 dom2.innerHTML = state.content
