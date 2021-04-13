@@ -1,69 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<style>
-			.wrapper {
-				position: relative;
-				height: 500px;
-				width: 500px;
-				padding: 20px;
-				margin: 20px;
-				background: yellow;
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+		function Foo () {
+
+		}
+		Foo.prototype.sayhi = function () {
+
+		}
+
+		const obj = new Foo();
+
+		Object.defineProperty(obj, "name", {
+			enumerable: true,
+			configurable: false,
+			writable: false,
+			value: function () {
 			}
-			.content {
-				float: left;
-				height: 200px;
-				width: 200px;
-				background: pink;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="wrapper">
-			<div class="content"></div>
-		</div>
-		<input type="text" />
-
-		<script>
-			const target = {
-				name: 'bjl'
-			}
-
-			const obj = {
-				age: 12,
-				hobby: {
-					ball: true,
-				}
-			}
-
-			const assign = Object.assign(target, obj);
-			obj.hobby.ball = 15;
-			console.log(assign)
-			// fetch("https://api.github.com/users/ruanyf")
-			// 	.then((response) => {
-      //     console.log(response);
-      //     return response.json()
-      //   })
-			// 	.then((json) => console.log(json))
-			// 	.catch((err) => console.log("Request Failed", err));
-
-			const content = document.querySelector('.content');
-			const wrapper = document.querySelector(".wrapper");
-
-			wrapper.addEventListener('click', function () {
-				console.log('parent click !!');
-			})
-			content.addEventListener('click', function (e) {
-				e.stopPropagation();
-				console.log('content click !!');
-			})
-			content.addEventListener('touchstart', function (e) {
-				return false
-				console.log('touch click !!');
-			})
-		</script>
-	</body>
+		})
+		for (const key in obj) {
+			console.log(obj[key]);
+		}
+  </script>
+</body>
 </html>

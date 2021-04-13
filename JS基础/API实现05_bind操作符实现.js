@@ -33,4 +33,20 @@ function person(sex, habbit) {
  }
  person.myBind(bjl, 'man')('coding');
  
+ /* 
  
+ call、apply、bind的区别 ？ 
+ 
+ 共同点：三者都可以改变其所在执行上下文this的指向，
+ 不同点：
+ 1。前两者会返回函数执行的结果，bind则会返回改变执行上下文指this后的函数
+ 2. call apply 基本一致，不同的地方是传入参数的方式不一样，call的参数需要一个一个传进去，apply则是以数组的形式传进去
+ 3. bind返回是一个函数，该函数执行时将会自动绑定给定的this，因此在实现bid的时候需要考虑作为构造函数使用的情况，不能直接返回执行结果
+   
+
+ 用call、apply、bind能改变箭头函数的this指向吗 ？
+ 不能，箭头函数主要解决匿名函数this指向改变的问题，包括setTimeout和setInterval中使用this所造成的问题。
+ 箭头函数的this指向的时定义时所在作用域对应的执行环境的this,并不是自己的this，因此不能改变箭头函数this的指向，
+ 如果放在最外层，在非严格模式下，this指向的时window，在严格模式下指向的时undefined
+
+ */
