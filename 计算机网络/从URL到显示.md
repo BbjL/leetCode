@@ -18,7 +18,6 @@
 ##### 从输入 url 到浏览器显示浏览器端工作原理
 
 ![浏览器各个进程](https://pic2.zhimg.com/v2-f04b3c3b86e76c1f63679d6a93191251_r.jpg)
-
 1. 浏览器进程的 UI 线程，捕捉地址栏内的地址，判断是 query 还是 url
 2. 网络进程会执行 DNS 查询，随后为请求建立 TLS 连接，如果 network 进程 接收到了重定向请求头如 301，network 进程 会通知 UI 进程 服务器要求重定向，之后，另外一个 URL 请求会被触发。
 3. 当请求响应返回的时候，network 进程 会依据 Content-Type 及 MIME Type sniffing 判断响应内容的格式。
@@ -145,7 +144,7 @@ prefetch 是预测会加载指定资源，如在我们的场景中，我们在�
 
 
 ##### 从URL到显示优化过程
-1. 减少DNS解析时间，即DNS预解析
+1. 减少DNS解析时间，即DNS缓存和预解析
  - 默认情况下浏览器会对页面中和当前域名（正在浏览网页的域名）不在同一个域的域名进行预获取，并且缓存结果，这就是隐式的 DNS Prefetch。如果想对页面中没有出现的域进行预获取，那么就要使用显示 DNS Prefetch 了。
  DNS预解析具体用法
   //用meta信息来告知浏览器, 当前页面要做DNS预解析
@@ -154,9 +153,38 @@ prefetch 是预测会加载指定资源，如在我们的场景中，我们在�
   <link rel="dns-prefetch" href="//www.zhix.net">
 
 2. HTTP连接时，减少HTTP请求数
+- 传输过程
   - 利用webpack制作雪碧图。
-  - 在带宽允许的条件下可以同时多个TCP连接，服务器设置
   - 将多个文件合并。但是注意在HTTP1.1中文件不应该太大，否则会阻塞后面的请求，在HTTP2.0中可以不需要考虑HTTP连接数，只需要考虑带宽。
-  - 使用缓存。使用强缓存
+  - 使用缓存静态文件。使用强缓存
+
+3. 传输文件大小
   - 服务器或webpack使用gzip压缩
-  - 
+  
+
+4. 文档解析过程
+  - 在vue项目中，将路由文件文凯打包，实现资源懒加载。
+  - 图片懒加载
+    1. offsetTop/getBoundingRect 配合 scroll事件 实现
+    2. intersection observer配合配合其回调函数实现
+    ```javascript
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyloadImages = document.querySelectorAll(".lazy");
+        var imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var image = entry.target;
+                    image.src = image.dataset.src;
+                    image.classList.remove("lazy");
+                    imageObserver.unobserve(image);
+                }
+            });
+        });
+        lazyloadImages.forEach(function(image) {
+            imageObserver.observe(image);
+        });
+    });
+    ```
+    3. 
+  - 文件预加载 preload
+    
