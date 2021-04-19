@@ -27,7 +27,7 @@ function myNew () {
     // 1、 创建一个指定原型的对象
     newObj  = Object.create(constructor.prototype);
 
-    // 2. 执行函数
+    // 2. 修改this指向，执行函数,
     let result = constructor.apply(newObj, Array.prototype.slice.call(arguments));
 
     // 3. 判断返回值

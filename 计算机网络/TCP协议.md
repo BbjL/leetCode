@@ -18,9 +18,7 @@ IP 协议只是一个地址协议，并不保证数据包的完整。如果路�
 ![TCP报文段的首部格式](https://img-blog.csdn.net/20180324192146298?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMyOTk4MTUz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
 ##### 特点
-- 
 - 慢启动
-    
 
 ##### 三个主要过程
 - **建立连接**

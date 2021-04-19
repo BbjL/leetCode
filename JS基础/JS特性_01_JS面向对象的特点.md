@@ -13,7 +13,7 @@ Javascript的继承通过原型属性进行父类的继承
   - 覆盖
     覆盖父类的方法
   - 重载
-    JS并没有对重写对应的API，需要自己实现
+    JS并没有对重载对应的API，需要自己实现
 
   ```javascript
   class Employees {

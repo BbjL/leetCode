@@ -9,25 +9,24 @@
 <body>
   
   <script>
-		function Foo () {
-
-		}
-		Foo.prototype.sayhi = function () {
-
+		function A () {
+			this.name = 'bjl';
 		}
 
-		const obj = new Foo();
+		A.prototype.a = function () {
+			console.log(1)
+		};
 
-		Object.defineProperty(obj, "name", {
-			enumerable: true,
-			configurable: false,
-			writable: false,
-			value: function () {
-			}
-		})
-		for (const key in obj) {
-			console.log(obj[key]);
+		function B ()  {
+			A.call(this)
 		}
+		B.prototype.a = function () {
+			console.log(2)
+		}
+		
+		console.log(new B())
+		new B().a();
+		
   </script>
 </body>
 </html>
