@@ -65,7 +65,7 @@
 - 不要把节点的属性值放在一个循环里当成循环里的变量。
 - 不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局
 - 动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
-- 将频繁重绘或者回流的节点设置为图层，图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
+- 将频繁重绘或者回流的节点设置为图层 will-change，图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
 
 **使用 requestAnimationFrame 如何减少回流**
 这个方法会在每一帧被调用 ，通过 API 的回调，我们可以把 JS 运行任务分成多个更小的任务块（分到每一帧），在每一帧时间用完前暂停 JS 执行，归还主线程
@@ -166,7 +166,7 @@ prefetch 是预测会加载指定资源，如在我们的场景中，我们在�
   - 在vue项目中，将路由文件文凯打包，实现资源懒加载。
   - 图片懒加载
     1. offsetTop/getBoundingRect 配合 scroll事件 实现
-    2. intersection observer配合配合其回调函数实现
+    2. intersection observer配合其回调函数实现
     ```javascript
     document.addEventListener("DOMContentLoaded", function() {
         var lazyloadImages = document.querySelectorAll(".lazy");
@@ -185,6 +185,11 @@ prefetch 是预测会加载指定资源，如在我们的场景中，我们在�
         });
     });
     ```
-    3. 
-  - 文件预加载 preload
-    
+  - 文件预加载 preload， 将字体等需要提前加载的文件优先级提前，尽快下载
+  - 防抖动、节流
+  - 事件代理
+  - 减少回流
+
+
+
+  
