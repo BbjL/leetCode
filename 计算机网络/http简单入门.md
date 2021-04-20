@@ -96,6 +96,7 @@
 
 500 Internel Server Error 表示服务器发生不可预期的错误，导致无法完成客户端的请求
 503 Service Unavailable 表示服务器当前不能够处理客户端的请求，在一段时间之后，服务器可能会恢复正常
+504 请求超时
 
 参考连接
 [HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html)

@@ -64,7 +64,7 @@ f(i)=max{f(i−1)+nums[i],nums[i]}
     for (let i = 1; i < len; i++) {
         dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
         maxSub = Math.max(maxSub, dp[i]);
-    }
+    } 
     return maxSub;
 };
 
