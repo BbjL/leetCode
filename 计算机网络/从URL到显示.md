@@ -134,13 +134,8 @@ window.requestAnimationFrame(step);
 ##### preload 和 prefetch 的区别
 如何区分 preload 和 prefetch
 
-preload   是告诉浏览器页面必定需要的资源，浏览器一定会加载这些资源；
-prefetch 是告诉浏览器页面可能需要的资源，浏览器不一定会加载这些资源。
-
-preload 是确认会加载指定资源，如在我们的场景中，x-report.js 初始化后一定会加载 PcCommon.js 和 TabsPc.js, 则可以预先 preload 这些资源；
-prefetch 是预测会加载指定资源，如在我们的场景中，我们在页面加载后会初始化首屏组件，当用户滚动页面时，会拉取第二屏的组件，若能预测用户行为，则可以 prefetch 下一屏的组件。
-[参考连接](https://juejin.cn/post/6844903562070196237)
-
+preload   提高资源加载的优先级，是告诉浏览器页面必定需要的资源，浏览器一定会加载这些资源；
+prefetch 是告诉浏览器页面可能需要的资源，在所有资源加载完毕后，将会加载prefetch的资源
 
 
 ##### 从URL到显示优化过程
@@ -156,17 +151,16 @@ prefetch 是预测会加载指定资源，如在我们的场景中，我们在�
 - 传输过程
   - 利用webpack制作雪碧图。
   - 将多个文件合并。但是注意在HTTP1.1中文件不应该太大，否则会阻塞后面的请求，在HTTP2.0中可以不需要考虑HTTP连接数，只需要考虑带宽。
-  - 使用缓存静态文件。使用强缓存
 
 3. 传输文件大小
   - 服务器或webpack使用gzip压缩
   
-
 4. 文档解析过程
-  - 在vue项目中，将路由文件文凯打包，实现资源懒加载。
+  - 使用缓存静态文件。使用强缓存
+  - 在vue项目中，动态引入组件，将路由文件分开打包，实现资源懒加载。 
   - 图片懒加载
     1. offsetTop/getBoundingRect 配合 scroll事件 实现
-    2. intersection observer配合其回调函数实现
+    2. intersection observer配合其回调函数实现 检测元素是否在视窗中
     ```javascript
     document.addEventListener("DOMContentLoaded", function() {
         var lazyloadImages = document.querySelectorAll(".lazy");
