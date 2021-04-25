@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function deepClone(obj) {
+        if (!obj && typeof obj !== "object") return obj;
+        const result = Array.isArray(obj) ? [] : {};
+        for (const key in obj) {
+          if (Object.hasOwnProperty.call(obj, key)) {
+            result[key] = deepClone(obj[key]);
+          }
+        }
+        return result;
+      }
+
+      /**
+       * 深拷贝
+       *
+       * @param {*} obj
+       * @param {Array<Object>} cache
+       * @return {*}
+       */
+      function deepCopy(obj, cache = []) {
+        // just return if obj is immutable value
+        if (obj === null || typeof obj !== "object") {
+          return obj;
+        }
+
+        // if obj is hit, it is in circular structure
+        const hit = find(cache, (c) => c.original === obj);
+        if (hit) {
+          return hit.copy;
+        }
+
+        const copy = Array.isArray(obj) ? [] : {};
+        // put the copy into cache at first
+        // because we want to refer it in recursive deepCopy
+        cache.push({
+          original: obj,
+          copy,
+        });
+
+        Object.keys(obj).forEach((key) => {
+          copy[key] = deepCopy(obj[key], cache);
+        });
+
+        return copy;
+      }
+
+      // 使用Map函数
+      function deepCopy(obj, map = new Map()) {
+        if (!isObject(obj)) return;
+        var newObj = Array.isArray(obj) ? [] : {};
+        if (map.get(obj)) {
+          return map.get(obj);
+        }
+        map.set(obj, newObj);
+        for (var key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            if (isObject(obj[key])) {
+              newObj[key] = deepCopy(obj[key], map);
+            } else {
+              newObj[key] = obj[key];
+            }
+          }
+        }
+        return newObj;
+      }
+
+      function isObject(obj) {
+        return typeof obj === "object" && obj !== null;
+      }
+      const obj1 = {
+        x: 1,
+        y: 2,
+        d: {
+          a: 3,
+          b: 4,
+        },
+      };
+      obj1.z = obj1;
+      const obj2 = deepCopy(obj1);
+      obj1.x = 10;
+      console.log(obj2);
+
+      function deepClone(obj, map = new Map()) {
+        if (!isObject(obj)) return obj;
+        const newObj = Array.isArray(obj) ? [] : {};
+        if (map.get(obj)) {
+          return map.get(obj);
+        }
+        map.set(obj, newObj);
+        for (const key in obj) {
+          if (Object.hasOwnProperty.call(obj, key)) {
+            newObj[key] = deepClone(obj[key]);
+          }
+        }
+        return newObj;
+      }
+
+      // 手写一个数组扁平化
+      Array.prototype.myFlat = function () {
+        return flat(this);
+      };
+
+      function flat(array) {
+        if (!Array.isArray(array)) return
+        const flatarr = [];
+        array.forEach((item) => {
+          if (Array.isArray(item)) {
+            const temp = flat(item);
+            flatarr.concat(temp);
+            console.log(flatarr)
+          } else {
+            flatarr.push(item)
+          }
+        });
+        return flatarr;
+      }
+
+      const flatarr = [1, 2, 3, [4, 5, 6, [7, 8, 9]]].myFlat();
+      console.log(flatarr);
+    </script>
+  </body>
+</html>

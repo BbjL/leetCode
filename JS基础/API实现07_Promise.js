@@ -50,8 +50,8 @@ class Prom {
   then (onResolve, onReject) {
     const self = this;
     // 判单传入参数是否为空
-    onResolve = onResolve !== undefined ? onResolve = onResolve : onResolve = value => value;
-    onReject = onReject !== undefined ? onReject = onReject : onReject = reason => {throw reason};
+    onResolve = onResolve !== undefined ?  onResolve :  value => value;
+    onReject = onReject !== undefined ?  onReject : reason => {throw reason};
 
     return new Prom((resolve, reject) => {
       // 调用resolve 还是 reject 由onResolve onReject执行结果的返回值决定
@@ -143,7 +143,8 @@ class Prom {
         }else {
           // 其他数据类型
           result[index] = p;
-          if (result.length === promises.length) resolve(result);
+          count++
+          if (count === promises.length) resolve(result);
         }
       })
     })
